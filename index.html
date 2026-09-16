@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Calculator</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #eef1f6;
+}
+
+.calculator {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#display {
+    width: 100%;
+    height: 70px;
+    box-sizing: border-box;
+    font-size: 30px;
+    text-align: right;
+    padding: 10px;
+    border: none;
+    background: #f2f4f8;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+button {
+    height: 60px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    background: #e9edf3;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.operator {
+    background: #dbe6ff;
+}
+
+.equal {
+    background: #4f7cff;
+    color: white;
+}
+
+.clear {
+    background: #ffdcdc;
+}
+
+.scientific {
+    background: #e5e5e5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+<input id="display" readonly>
+
+<div class="buttons">
+
+<button class="clear" onclick="clearDisplay()">AC</button>
+<button onclick="backspace()">⌫</button>
+<button class="operator" onclick="add('(')">(</button>
+<button class="operator" onclick="add(')')">)</button>
+
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button class="operator" onclick="add('/')">÷</button>
+
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button class="operator" onclick="add('*')">×</button>
+
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button class="operator" onclick="add('-')">−</button>
+
+<button onclick="add('0')">0</button>
+<button onclick="add('.')">.</button>
+<button class="equal" onclick="calculate()">=</button>
+<button class="operator" onclick="add('+')">+</button>
+
+<button class="scientific" onclick="sqrt()">√</button>
+<button class="scientific" onclick="square()">x²</button>
+<button class="scientific" onclick="add('Math.PI')">π</button>
+<button class="scientific" onclick="percent()">%</button>
+
+<button class="scientific" onclick="sin()">sin</button>
+<button class="scientific" onclick="cos()">cos</button>
+<button class="scientific" onclick="tan()">tan</button>
+<button class="scientific" onclick="log()">log</button>
+
+</div>
+
+</div>
+
+<script>
+
+let display = document.getElementById("display");
+
+
+function add(value) {
+    display.value += value;
+}
+
+
+function clearDisplay() {
+    display.value = "";
+}
+
+
+function backspace() {
+    display.value =
+        display.value.slice(0, -1);
+}
+
+
+function calculate() {
+
+    try {
+
+        let expression = display.value;
+
+        let answer = Function(
+            "return " + expression
+        )();
+
+        display.value = answer;
+
+    } catch (error) {
+
+        display.value = "Error";
+
+    }
+
+}
+
+
+function sqrt() {
+
+    try {
+
+        let value = Number(display.value);
+
+        display.value = Math.sqrt(value);
+
+    } catch {
+
+        display.value = "Error";
+
+    }
+
+}
+
+
+function square() {
+
+    try {
+
+        let value = Number(display.value);
+
+        display.value = value * value;
+
+    } catch {
+
+        display.value = "Error";
+
+    }
+
+}
+
+
+function percent() {
+
+    try {
+
+        let value = Number(display.value);
+
+        display.value = value / 100;
+
+    } catch {
+
+        display.value = "Error";
+
+    }
+
+}
+
+
+function sin() {
+
+    let value = Number(display.value);
+
+    display.value =
+        Math.sin(value * Math.PI / 180);
+
+}
+
+
+function cos() {
+
+    let value = Number(display.value);
+
+    display.value =
+        Math.cos(value * Math.PI / 180);
+
+}
+
+
+function tan() {
+
+    let value = Number(display.value);
+
+    display.value =
+        Math.tan(value * Math.PI / 180);
+
+}
+
+
+function log() {
+
+    let value = Number(display.value);
+
+    display.value =
+        Math.log10(value);
+
+}
+
+</script>
+
+</body>
+</html>
